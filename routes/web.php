@@ -15,8 +15,8 @@ Route::get('/', function () {
     ]);
 });
 
-// Route to the RSVP page /ocularis-infernum/invitee_code
-Route::get('/ocularis-infernum/{invitee_code}', function ($invitee_code) {
+// Route to the RSVP page /invite/invitee_code
+Route::get('/invite/{invitee_code}', function ($invitee_code) {
     // get the RSVP record from the database based on the invitee_code
     $rsvp = App\Models\Rsvp::where('invitee_code', $invitee_code)->first();
     // if the RSVP record does not exist, return a 404 response
@@ -35,7 +35,7 @@ Route::get('/ocularis-infernum/{invitee_code}', function ($invitee_code) {
 })->name('ocularis-infernum-rsvp');
 
 // Ghost selection page
-Route::get('/ocularis-infernum/{invitee_code}/ghost-selection', function ($invitee_code) {
+Route::get('/invite/{invitee_code}/ghost-selection', function ($invitee_code) {
     // get the RSVP record from the database based on the invitee_code
     $rsvp = App\Models\Rsvp::where('invitee_code', $invitee_code)->first();
     // if the RSVP record does not exist, return a 404 response
@@ -57,7 +57,7 @@ Route::get('/ocularis-infernum/{invitee_code}/ghost-selection', function ($invit
     ]);
 })->name('ghost-selection');
 
-Route::get('/ocularis-infernum/{rsvp_id}/selected-ghost', function ($rsvp_id) {
+Route::get('/invite/{rsvp_id}/selected-ghost', function ($rsvp_id) {
     // get the RSVP record from the database based on the invitee_code
     $rsvp = App\Models\Rsvp::find($rsvp_id)->load('ghost');
     // if the RSVP record does not exist, return a 404 response
@@ -71,7 +71,7 @@ Route::get('/ocularis-infernum/{rsvp_id}/selected-ghost', function ($rsvp_id) {
 })->name('selected-ghost');
 
 // Route to handle the ghost selection form submission that passes the rsvp_id as a parameter
-Route::post('/ocularis-infernum/{rsvp_id}/ghost-selection', function ($rsvp_id) {
+Route::post('/invite/{rsvp_id}/ghost-selection', function ($rsvp_id) {
     // get the RSVP record from the database based on the rsvp_id
     $rsvp = App\Models\Rsvp::find($rsvp_id);
     // if the RSVP record does not exist, return a 404 response
@@ -106,7 +106,7 @@ Route::post('/ocularis-infernum/{rsvp_id}/ghost-selection', function ($rsvp_id) 
 });
 
 // Route to handle the RSVP form submission that passes the rsvp_id as a parameter
-Route::post('/ocularis-infernum/{rsvp_id}', function ($rsvp_id) {
+Route::post('/invite/{rsvp_id}', function ($rsvp_id) {
     // get the RSVP record from the database based on the rsvp_id
     $rsvp = App\Models\Rsvp::find($rsvp_id);
     // if the RSVP record does not exist, return a 404 response
@@ -139,7 +139,7 @@ Route::post('/ocularis-infernum/{rsvp_id}', function ($rsvp_id) {
 });
 
 // Route to reset the rsvp status and ghost selection and redirect back to the RSVP page
-Route::post('/ocularis-infernum/{rsvp_id}/resend', function ($rsvp_id) {
+Route::post('/invite/{rsvp_id}/resend', function ($rsvp_id) {
     // get the RSVP record from the database based on the rsvp_id
     $rsvp = App\Models\Rsvp::find($rsvp_id);
     // if the RSVP record does not exist, return a 404 response

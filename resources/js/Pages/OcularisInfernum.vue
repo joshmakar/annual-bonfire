@@ -57,7 +57,7 @@ rsvpSelection.value = props.rsvp.status ?? '';
                     <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                         <div class="rounded-lg shadow-lg lg:col-span-2">
                             <div class="p-6 text-center">
-                                <form :action="`/ocularis-infernum/${rsvp.id}`" method="POST">
+                                <form :action="`/invite/${rsvp.id}`" method="POST">
                                     <input type="hidden" name="rsvp_id" value="{{ rsvp.id }}" />
                                     <input type="hidden" name="_token" :value="$page.props.csrf_token">
                                     <h2 class="text-lg font-semibold text-white">RSVP</h2>

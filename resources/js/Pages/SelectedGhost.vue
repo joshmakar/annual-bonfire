@@ -62,8 +62,8 @@ defineProps<{
                     <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                         <div class="rounded-lg shadow-lg lg:col-span-2">
                             <div class="p-6 text-center">
-                                <!-- <a :href="`/ocularis-infernum/${rsvp.invitee_code}/resend`" class="text-lg mt-4 text-gray-400 underline">Resend Your Fate</a> -->
-                                <form :action="`/ocularis-infernum/${rsvp.id}/resend`" method="POST">
+                                <!-- <a :href="`/invite/${rsvp.invitee_code}/resend`" class="text-lg mt-4 text-gray-400 underline">Resend Your Fate</a> -->
+                                <form :action="`/invite/${rsvp.id}/resend`" method="POST">
                                     <input type="hidden" name="_token" :value="$page.props.csrf_token">
                                     <button type="submit" class="text-lg mt-4 text-gray-400 underline">Resend Your Fate</button>
                                 </form>
