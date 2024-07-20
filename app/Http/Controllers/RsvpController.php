@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorersvpsRequest;
-use App\Http\Requests\UpdatersvpsRequest;
-use App\Models\rsvps;
+use App\Http\Requests\StoreRsvpRequest;
+use App\Http\Requests\UpdateRsvpRequest;
+use App\Models\Rsvp;
 
-class RsvpsController extends Controller
+class RsvpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class RsvpsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorersvpsRequest $request)
+    public function store(StoreRsvpRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class RsvpsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(rsvps $rsvps)
+    public function show(Rsvp $rsvp)
     {
         //
     }
@@ -43,7 +43,7 @@ class RsvpsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(rsvps $rsvps)
+    public function edit(Rsvp $rsvp)
     {
         //
     }
@@ -51,7 +51,7 @@ class RsvpsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatersvpsRequest $request, rsvps $rsvps)
+    public function update(UpdateRsvpRequest $request, Rsvp $rsvp)
     {
         //
     }
@@ -59,7 +59,7 @@ class RsvpsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(rsvps $rsvps)
+    public function destroy(Rsvp $rsvp)
     {
         //
     }
