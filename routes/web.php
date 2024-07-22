@@ -48,7 +48,7 @@ Route::get('/invite/{invitee_code}/ghost-selection', function ($invitee_code) {
     }
 
     // get list of ghosts not selected by other guests
-    $availableGhosts = App\Models\Ghost::whereNull('rsvp_id')->get();
+    $availableGhosts = App\Models\Ghost::whereNull('rsvp_id')->orWhere('name', '=', 'Guest')->get();
 
     // return the Inertia view with the RSVP record
     return Inertia::render('GhostSelection', [
@@ -79,27 +79,35 @@ Route::post('/invite/{rsvp_id}/ghost-selection', function ($rsvp_id) {
         abort(404);
     }
 
-    // validate the request data
-    $data = request()->validate([
-        'ghost_id' => 'required|exists:ghosts,id',
-    ]);
+    $isGhostSelectionGuest = request()->has('ghost_id') && request('ghost_id') === 'guest';
 
-    // get the ghost record based on the ghost_id
-    $ghost = App\Models\Ghost::find($data['ghost_id']);
-    // if the ghost record does not exist, return a 404 response
-    if (!$ghost) {
-        abort(404);
+    if (!$isGhostSelectionGuest) {
+        // validate the request data ghost exists
+        $data = request()->validate([
+            'ghost_id' => 'required|exists:ghosts,id',
+        ]);
+    
+        // get the ghost record based on the ghost_id
+        $ghost = App\Models\Ghost::find($data['ghost_id']);
+        // if the ghost record does not exist, return a 404 response
+        if (!$ghost) {
+            abort(404);
+        }
+    
+        // set the ghost_id on the RSVP record
+        $rsvp->ghost_id = $ghost->id;
+        // save the RSVP record
+        $rsvp->save();
+    
+        // set the rsvp_id on the ghost record
+        $ghost->rsvp_id = $rsvp->id;
+        // save the ghost record
+        $ghost->save();
+    } else {
+        $rsvp->ghost_id = null;
+        $rsvp->save();
     }
 
-    // set the ghost_id on the RSVP record
-    $rsvp->ghost_id = $ghost->id;
-    // save the RSVP record
-    $rsvp->save();
-
-    // set the rsvp_id on the ghost record
-    $ghost->rsvp_id = $rsvp->id;
-    // save the ghost record
-    $ghost->save();
 
     // redirect back to the RSVP page with a success message
     return redirect()->route('ocularis-infernum-rsvp', ['invitee_code' => $rsvp->invitee_code]);
